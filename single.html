@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puzzel-Game</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="shape.css" rel="stylesheet">
+    <style>
+      body {
+        background-color: white;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      /* #bg-img img {
+    max-width: 900%;
+    max-height: 100%;
+    display: flexbox;
+    margin: auto;
+  } */
+
+      /* #words {
+        position: absolute;
+        border-style: solid;
+        border-width: 2px;
+        border-color: white;
+        font-family: sans-serif;
+        color: black;
+        padding: 12px;
+        background-color: white;
+        margin: 0;
+        margin-top: 595px;
+        top: 415px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 250px;
+        font-size: 20px;
+        text-align: center;
+        padding: 180px 40px;
+        box-shadow: 2px 2px 2px 2px rgb(223, 223, 110);
+      } */
+      h4 {
+        position: absolute;
+        border-style: solid;
+        border-style: ridge;
+        border-width: 1px;
+        border-color: #000000;
+        font-family: Algerian;
+        font-size: 35px;
+        color: rgb(190, 14, 14);
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        margin-top: 100px;
+        top: 215px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      h5 {
+        position: absolute;
+        border-style: none;
+        /* border-width: 2px; */
+        /* box-shadow: 5px 5px 5px 5px  rgb(223, 223, 110); */
+        /* border-color: yellow; */
+        font-family: sans-serif;
+        padding: 12px;
+        background-color: white;
+        margin: 0;
+        margin-top: 400px;
+        top: 215px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 30px;
+        text-align: center;
+      }
+      h6 {
+        position: absolutef;
+        border-style: none;
+        /* border-width: 2px; */
+        /* box-shadow: 5px 5px 5px 5px  rgb(223, 223, 110); */
+        /* border-color: yellow; */
+        border-radius: 6px;
+        font-family: sans-serif;
+        padding: 12px;
+        background-color: white;
+        margin: 0;
+        margin-top: 625px;
+        top: 215px;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        text-align: center;
+        background-color: rgba(36, 156, 174, 0.392);
+        padding: 14px 200px;
+      }
+      /* LETTERS JS */
+      /* .container{
+        position: absolute;
+        width :405px;
+        height: 325px;
+        margin: 0px auto;
+    }
+    .hint{
+        position: absolute;
+        width : 100px;
+        height: 325px;
+        float: left;
+        text-align: center;
+        font-size: 30px;
+        border: 1px solid black;
+    }
+    .letters {
+      position: absolute;
+      width: 300px;
+      height: 325px;
+      border: 1px solid black;
+      float: right;
+    } */
+
+      .black-box {
+        position: relative;
+        z-index: 1;
+        /* border: 2px solid black; */
+        height: 60px;
+        width: 80px;
+        margin: 30px;
+        left: 150px;
+        top: -211px;
+        
+      }
+
+      .gray-box {
+        position: absolute;
+        z-index: 3; /* gray box will be above both green and black box */
+        /* background: lightgray; */
+        height: 90px;
+        width: 80px;
+        left: 10px;
+        top: -01px;
+      }
+
+      .green-box {
+        position: absolute;
+        z-index: 2; /* green box will be above black box */
+        /* background: lightgreen; */
+        height: 60px;
+        width: 75px;
+        left: 150px;
+        top: -3px;
+        
+      }
+      .container {
+        position: relative;
+      }
+
+      #container {
+        width: 810px;
+        height: 650px;
+        margin: 0px auto;
+      }
+
+      #hint {
+        width: 200px;
+        height: 500px;
+        float: left;
+        text-align: left;
+        font-size: 30px;
+        /* border: 1px solid black; */
+        left:100px;
+        top : -1000px;
+      }
+
+      #hint p{
+        font-family: kanit;
+        font-size: 40px;
+        color: solid black;
+      }
+/* Images box */
+      #hints {
+        width: 200px;
+        height: 470px;
+        float: left;
+        text-align: center;
+        font-size: 20px;
+        border: 1px solid black;
+        left:315px;
+        top : -1000px
+      }
+      .individual
+      {
+       width: 55px;
+       height: 70px;
+       float: left;
+       border: 1px solid black;
+      }
+    table {
+        border-collapse: collapse; 
+        position: absolute;
+        top : -1175px;
+        float:right;
+        left : 400px;
+        border-radius: 4px;
+        margin: 3px;
+       
+        
+      }
+
+      td {
+        width: 100px;
+        height: 110px;
+        border: 1px solid black;
+        text-align: center;
+        font-size: 40px;
+        font-family: katin;
+        cursor: pointer;
+        background-color: lightblue;
+        border-radius: auto;
+        margin: 13px;
+        
+
+      }
+
+      .selected {
+        background-color: green;
+      }
+      #finishButton{
+          
+          float: left;
+          text-align: center;
+         
+      }
+      #btn{
+        height: 99px;
+        background-color: rgb(213, 228, 234);
+        margin: 10px;
+        height: 100px;
+      }
+      #finishButton{
+        width: 400px;
+        text-align: center;
+        top: 25px;
+        padding-top: 20px;
+        background-color: rgb(16, 16, 110);
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        z-index: 2;
+        left: 400px;    
+      }
+      .alret{
+        background-color: blue;
+      }
+
+      .selected {
+        background-color: green;
+      }
+
+      .selectedFinal {
+        background-color: green;
+      }
+
+      .notselectedFinal {
+        background-color: red;
+      }
+      #finishButton .alret{
+        background-color: tomato;
+      }
+
+  h4 {
+    position: absolute;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: 2px 2px 2px 2px  rgb(223, 223, 110);
+    border-color: yellow;
+    font-family: sans-serif;
+    color: rgb(190, 14, 14);
+    padding: 12px;
+    background-color:white;
+    margin: 0;
+    margin-top: 150px;
+    top: 215px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 950px;
+    font-size: 20px;
+    text-align: center;
+  }
+  h5 {
+    position: absolute;
+    border-style: none;
+    font-family: sans-serif;
+    padding: 12px;
+    background-color:white;
+    margin: 0;
+    margin-top: 400px;
+    top: 215px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    text-align: center;
+  }
+  a{
+    position: absolute;
+    border-style: none;
+    border-radius: 6px;
+    font-family: sans-serif;
+    padding: 12px;
+    background-color:white;
+    margin: 0;
+    margin-top: 625px;
+    top: 215px;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    text-align: center;
+    background-color: rgba(36, 156, 174, 0.392);
+    padding: 14px 200px;
+  }
+
+
+
+
+    </style>
+
+
+  </head>
+  <!-- Body -->
+
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <img src="img/img2.jpg" />
+              <div class="row">
+                  <form action="">
+                      <!-- <label for="cars">Choose Shape:</label> -->
+                      <select name="shap" id="semi">
+                          <option></option>
+                          <option value="Semi-circle">Semi-circle</option>
+                          <option value="Heart">Heart</option>
+                          <option value="Oval">Oval</option>
+                          <option value="Rhombus">Rhombus</option>
+                      </select>
+                      <br><br>
+                      <!-- <input type="submit" value="Submit"> -->
+                      <select name="shap" id="oval">
+                          <option></option>
+                          <option value="Semi-circle">Semi-circle</option>
+                          <option value="Heart">Heart</option>
+                          <option value="Oval">Oval</option>
+                          <option value="Rhombus">Rhombus</option>
+                      </select>
+                      <select name="shap" id="heart">
+                          <option></option>
+                          <option value="Semi-circle">Semi-circle</option>
+                          <option value="Heart">Heart</option>
+                          <option value="Oval">Oval</option>
+                          <option value="Rhombus">Rhombus</option>
+                      </select>
+                      <select name="shap" id="rhombus">
+                          <option></option>
+                          <option value="Semi-circle">Semi-circle</option>
+                          <option value="Heart">Heart</option>
+                          <option value="Oval">Oval</option>
+                          <option value="Rhombus">Rhombus</option>
+                      </select>
+  
+                      <div class="shapes"></div>
+                      <div class="listen">Click Here to listen</div>
+                      <div class="answer-box">Answer Box</div>
+                      <!-- <input type="text" id="answer-box-1" name="Answer"> -->
+                      <textarea id="answer-box-1" rows="5" cols="9"></textarea>
+                      <div class="sen-match">Select the appropriate shape name below the object as well</div>
+  
+                      <div id="div1" class="" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                      <div id="div2" class="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                      <div id="div3" class="div3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                      <div id="div4" class="div4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                      <br>
+                      
+                  </form>
+                  <div class="row" id="row1">
+                      <div class="col-md-2"  id="col1">
+                      <img id="drag1" class="imgdrag" src="img/tr2.png" draggable="true" ondragstart="drag(event)" width="70px" height="50">
+                  </div>
+                 
+  
+                  <!-- <div class="row"> -->
+                      <div class="col-md-2"  id="col2">
+                          <img id="drag1" class="imgdrag" src="img/heart.png" draggable="true" ondragstart="drag(event)" width="70px" height="50">
+                  </div>
+                  <!-- <div class="row"> -->
+                      <div class="col-md-2"  id="col3">
+                          <img id="drag1" class="imgdrag" src="img/oval.png" draggable="true" ondragstart="drag(event)" width="70px" height="50">
+                  </div>
+                  <!-- <div class="row"> -->
+                      <div class="col-md-2"  id="col4">
+                          <img id="drag1" class="imgdrag" src="img/pentagon.png" draggable="true" ondragstart="drag(event)" width="70px" height="50">
+                  </div>
+                  <!-- <div class="row"> -->
+                      <div class="col-md-2"  id="col5">
+                          <img id="drag1" class="imgdrag" src="img/rhombus.png" draggable="true" ondragstart="drag(event)" width="70px" height="50">
+                  </div>
+              </div>
+              
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+  <script src="shape.js"></script>
+
+   
+<!-- Another page -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <img src="img/3.png" alt="">
+        <div class="row">
+            <h4>Watch More about Shapes on Youtube</h4>
+            <h5><iframe width=" 945px;" height="325" src="https://www.youtube.com/embed/DKKSExzt0k8?si=Opv9VQxKzN3Cqn82" 
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></h5>
+        </div>
+        <div class="row">
+            <a href="https://www.liveworksheets.com/w/en/logical-thinking/7597981">Click</a>
+        </div>
+    </div>
+
+
+<!------------------------------------ Word Search-------------------------------------------------- -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <img src="img/4.png" alt="" />
+          <div class="row">
+            <!-- <h4>Word Search</h4> -->
+            <!-- <div class="col-md-12" id="words"> -->
+              <div class="container" id="words">
+                <div class="gray-box" id="hint">
+
+                </div>
+      
+            <table id="wordSearchGrid"></table>
+            </table>
+            <br /><br />
+            <div class="row" id="btn">
+                <div class="col-md-12" id="btn-1">
+                    <button id="finishButton" onclick="onFinish()">Finish</button>
+                </div>
+            </div>    
+                  <script>
+                    // Define the grid of letters
+                    const grid = [
+                      ['b', 'o', 'a', 't', 'p', 'p'],
+                      ['x', 'y', 'b', 'c', 'e', 'o'],
+                      ['f', 's', 'e', 'm', 'a', 't'],
+                      ['s', 't', 'a', 'o', 'c', 't'],
+                      ['y', 'a', 'c', 's', 'h', 'y'],
+                      ['p', 'r', 'h', 'y', 'o', 't']
+                    ];
+              
+                    // Define the list of words
+                    const words = ['toy', 'boat', 'star', 'potty', 'peach', 'beach'];
+              
+                    // Generate the grid dynamically
+                    const wordSearchGrid = document.getElementById('wordSearchGrid');
+                    for (let i = 0; i < grid.length; i++) {
+                      const row = document.createElement('tr');
+                      for (let j = 0; j < grid[i].length; j++) {
+                        const cell = document.createElement('td');
+                        cell.textContent = grid[i][j];
+                        row.appendChild(cell);
+                      }
+                      wordSearchGrid.appendChild(row);
+                    }
+              
+                    // Add event listener to each cell
+                    const cells = document.getElementsByTagName('td');
+                    for (const cell of cells) {
+                      cell.addEventListener('click', toggleSelection);
+                    }
+              
+                    // Track selected letters
+                    let selectedLetters = [];
+              
+                    // Function to toggle cell selection
+              
+                    let previousCell;
+              
+                    function toggleSelection() {
+                      const letter = this.textContent;
+              
+                      // Check if the selected cell is adjacent to the previously selected cell
+                      if (!previousCell || isAdjacent(this, previousCell)) {
+                        this.classList.add('selected');
+                        selectedLetters.push(letter);
+                        previousCell = this;
+                      } else {
+                        // Clear the previous selection and start a new sequence
+                        clearSelection();
+                        this.classList.add('selected');
+                        selectedLetters.push(letter);
+                        previousCell = this;
+                      }
+                    }
+              
+                    function isAdjacent(cell1, cell2) {
+                      const cell1Index = Array.from(cells).indexOf(cell1);
+                      const cell2Index = Array.from(cells).indexOf(cell2);
+              
+                      // Calculate row and column indices for each cell
+                      const cell1Row = Math.floor(cell1Index / grid[0].length);
+                      const cell1Col = cell1Index % grid[0].length;
+                      const cell2Row = Math.floor(cell2Index / grid[0].length);
+                      const cell2Col = cell2Index % grid[0].length;
+              
+                      // Check if the cells are adjacent horizontally, vertically, or diagonally
+                      return (
+                        Math.abs(cell1Row - cell2Row) <= 1 &&
+                        Math.abs(cell1Col - cell2Col) <= 1
+                      );
+                    }
+                    // Function to handle the "Check My Answers" button click
+                    function checkAnswers() {
+                      checkWord();
+                      // Disable further selection in the grid
+                      finishButton.disabled = true;
+                    }
+              
+                    // Function to handle the "Email My Answers" button click
+                    function emailAnswers() {
+                      const email = prompt('Please enter your email address:');
+                      if (email) {
+                        const selectedWord = selectedLetters.join('');
+                        if (words.includes(selectedWord)) {
+                          alert(`Word "${selectedWord}" is found. Email sent to: ${email}`);
+                        } else {
+                          alert(`Word "${selectedWord}" is not found. Email sent to: ${email}`);
+                        }
+                      }
+                      finishButton.disabled = true;
+                    }
+              
+                    // Function to check word and handle success/error messages
+                    function checkWord() {
+                      const selectedWord = selectedLetters.join('');
+                      console.log("selectedWord", selectedWord);
+                      console.log("words : ", words);
+                      console.log("found the word : ", words.includes(selectedWord));
+              
+                      if (words.includes(selectedWord)) {
+                        highlightSelection(true);
+                      } else {
+                        highlightSelection(false);
+                      }
+                    }
+                    // Function to highlight the selected letters
+                    function highlightSelection(found) {
+                      for (const cell of cells) {
+                        if (cell.classList.contains('selected')) {
+                          cell.classList.remove('selected');
+                          if (found) {
+                            console.log("Found")
+                            cell.classList.add('selectedFinal');
+                          } else {
+                            cell.classList.add('notselectedFinal');
+                          }
+                        }
+                      }
+                      // Disable further selection in the grid
+                      for (const cell of cells) {
+                        cell.removeEventListener('click', toggleSelection);
+                      }
+                    }
+              
+                    function onFinish() {
+                      /* const popup = prompt('What do you want to do ?') */
+                      ;
+                      const popup = document.createElement('div');
+                      popup.classList.add('alert');
+              
+                      // Create the buttons
+                      const checkButton = document.createElement('button');
+                      checkButton.textContent = 'Check My Answer';
+                      checkButton.addEventListener('click', function() {
+                        checkAnswers();
+                        document.body.removeChild(popup);
+                      });
+              
+                      const emailButton = document.createElement('button');
+                      emailButton.textContent = 'Email My Answers';
+                      emailButton.addEventListener('click', function() {
+                        emailAnswers();
+                        document.body.removeChild(popup);
+                      });
+              
+                      // Append the buttons to the popup
+                      popup.appendChild(checkButton);
+                      popup.appendChild(emailButton);
+              
+                      // Append the popup to the body
+                      document.body.appendChild(popup);
+                      /*  }); */
+                    }
+              
+                    // Add event listener to finish button
+                    /* const finishButton = document.getElementById('finishButton'); */
+                    /* finishButton.onClick(onFinish()); */
+              
+                    /* finishButton.addEventListener('click', onFinish()); */
+                    /* <button onclick = "onFinish()" > Try it < /button> */
+              
+                  </script>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br><br>
+
+
+
+
+  </div>
+  </body>
+</html>
